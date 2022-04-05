@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    jdbc:mysql://localhost:3306/hospital  本地数据库
+#    jdbc:mysql://192.168.61.128:3306/hospital?useUnicode=true&characterEncoding=UTF-8&
+#  useSSL=false&serverTimezone=Hongkong 远程数据库
+#    url: jdbc:mysql://localhost:3306/hospital
+#    url: jdbc:mysql://82.156.215.115:3306/hospital?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/hostital?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: zs144639//
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

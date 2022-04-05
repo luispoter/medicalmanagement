@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="ttp://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/localstyle.css"/>
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+    <link rel="shortcut icon"  href="#"/>
+</head>
+<body>
+<div align="center">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">验证手机</label>
+                <div class="layui-input-inline">
+                    <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">验证邮箱</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/layui/layui.js"></script>
+</body>
+</html>

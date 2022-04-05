@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="ttp://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加病人</title>
+    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+    <link rel="stylesheet" type="text/css" media="all" href="/css/localstyle.css"/>
+</head>
+<body>
+<div th:fragment="permit">
+<br/>
+<div align="center"><p class="xihong">西虹市第一人民医院</p></div>
+<div align="center"><p id="xihong">骨科病历单</p></div>
+<br/>
+<br/>
+<div id="xihongdiv1" align="center">
+<!--    multipart/form-data  是指表单数据有多部分构成，既有文本数据，又有文件等二进制数据的意思
+ 默认情况下，enctype的值是application/x-www-form-urlencoded-->
+    <form class="layui-form" action="/save" method="post" enctype="multipart/form-data" >
+        <table border="1px" id="xihong2">
+            <tr>
+                <td>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="username"  autocomplete="off" class="layui-input" lay-verify="required" lay-reqtext="姓名是必填项，不能为空!">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别:</label>
+                        <div class="layui-input-block">
+                            <select name="sex" lay-filter="aihao">
+                                <option value="0" selected="">男</option>
+                                <option value="1">女</option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">年龄:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="age"  autocomplete="off" class="layui-input" lay-verify="required" lay-reqtext="年龄是必填项，不能为空!">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">联系电话:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="tel"  autocomplete="off" class="layui-input" lay-verify="required" lay-reqtext="联系电话是必填项，不能为空!">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">家庭地址:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="home"  autocomplete="off" class="layui-input" lay-verify="required" lay-reqtext="家庭地址是必填项，不能为空!">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">主治医生:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="doc"  autocomplete="off" class="layui-input" lay-verify="required" lay-reqtext="主治医生是必填项，不能为空!">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">就诊时间:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="treatTime" id="datetime" autocomplete="off" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input" lay-verify="required datetime" lay-reqtext="就诊时间是必填项，不能为空!">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮政编码:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="postalCode"  autocomplete="off" class="layui-input" lay-verify="required" lay-reqtext="邮政编码是必填项，不能为空!">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">婚姻状况:</label>
+                        <div class="layui-input-block">
+                            <select name="maritalStatus" lay-filter="aihao">
+                                <option value="0" selected="">未婚</option>
+                                <option value="1">已婚</option>
+                                <option value="2">离异</option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" height="100px">
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">主诉:</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" name="diseaseSituation" lay-verify="required" lay-reqtext="主诉是必填项，不能为空!" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" height="100px">
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">CT检查:</label>
+                        <div class="layui-input-block">
+<!--                            <textarea placeholder="请输入内容"  name="result" lay-verify="required" lay-reqtext="诊断结果是必填项，不能为空!" class="layui-textarea"></textarea>-->
+<!--                            <div class="layui-upload-drag" id="upload">-->
+<!--                                <i class="layui-icon"></i>-->
+<!--                                <p>点击上传，或将文件拖拽到此处</p>-->
+<!--                                <input  name="ct" type="file">-->
+<!--                                <div class="layui-hide" id="uploadDemoView">-->
+<!--                                    <hr>-->
+<!--                                    <img src="" alt="上传成功后渲染" style="max-width: 196px">-->
+<!--                                </div>-->
+<!--                                </input>-->
+<!--                            </div>-->
+                            <input type="file" name="ct">
+<!--                            <div class="layui-upload-drag" id="upload" >-->
+<!--                                <i class="layui-icon"></i>-->
+<!--                                <p>点击上传，或将文件拖拽到此处</p>-->
+<!--                                <div class="layui-hide" id="uploadDemoView">-->
+<!--                                    <hr>-->
+<!--                                    <img src="" alt="上传成功后渲染" style="max-width: 196px">-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" height="100px">
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">诊断结果:</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容"  name="result" lay-verify="required" lay-reqtext="诊断结果是必填项，不能为空!" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" >
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">结果类型:</label>
+                        <div class="layui-input-block">
+                            <select name="type" lay-filter="aihao">
+                                <option value="0" selected="">肱骨干骨折</option>
+                                <option value="1">佝偻病</option>
+                                <option value="2">肋骨骨折</option>
+                                <option value="3">颈椎病</option>
+                                <option value="4">肩周炎</option>
+                                <option value="5">坐骨神经损伤</option>
+                                <option value="6">脊椎骨骨髓炎</option>
+                                <option value="7">半月板损伤</option>
+                                <option value="8">血源性骨髓炎</option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align="center">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <div id="layerDemo" style="margin-bottom: 0;">
+                                    <input type="submit" name="submit" value="点击提交"  lay-submit="" lay-filter="demo2" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-block">
+                                <input type="reset" name="reset" value="点击重置" class="layui-btn layui-btn-danger"  >
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script src="/layui/layui.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'layedit', 'laydate'], function(){
+            var form = layui.form
+                ,layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+
+            //日期
+            laydate.render({
+                elem: '#datetime'
+                ,type:'datetime'
+            });
+
+            //创建一个编辑器
+            var editIndex = layedit.build('LAY_demo_editor');
+
+            //自定义验证规则
+            form.verify({
+                title: function(value){
+                    if(value.length < 5){
+                        return '标题至少得5个字符啊';
+                    }
+                }
+                ,pass: [
+                    /^[\S]{6,12}$/
+                    ,'密码必须6到12位，且不能出现空格'
+                ]
+                ,content: function(value){
+                    layedit.sync(editIndex);
+                }
+            });
+
+            //监听提交
+            form.on('submit(demo1)', function(data){
+                layer.alert(JSON.stringify(data.field), {
+                    title: '最终的提交信息'
+                })
+                return false;
+            });
+
+        });
+        layui.use(['upload', 'element', 'layer'], function() {
+            var $ = layui.jquery
+                , upload = layui.upload
+                , element = layui.element
+                , layer = layui.layer;
+
+            upload.render({
+                elem: '#upload'
+                ,url: '/save' //改成您自己的上传接口
+                ,done: function(res){
+                    layer.msg('上传成功');
+                    layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.files.file);
+                    console.log(res)
+                }
+            });
+        })
+    </script>
+</div>
+</body>
+</html>

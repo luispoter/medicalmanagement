@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>住院医师</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body>
+<table class="layui-hide" id="test" lay-filter="test" ></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>
+
+<script src="layui/layui.js" charset="utf-8"></script>
+
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+        table.render({
+            elem: '#test'
+            , url: '/zhuyuanyishi'
+            , toolbar: '#toolbarDemo'
+            , title: '用户数据表'
+            ,height:500
+            , totalRow: true
+            , cols: [
+                [
+                    { type: 'numbers', title: '序号', width: 50 }
+                    //field的值，要跟patientVO的属性绑定起来，因为访问的是list,它返回的是PatientVO的属性值
+                    ,{type: 'checkbox'}
+                    ,{field:'docid', title:'医生编号', width:110, unresize: true, sort: true}
+                    ,{field:'username', title:'医生账号', width:110, unresize: true, }
+                    , {field: 'name', title: '医生姓名', width: 120, }
+                    , {field: 'password', title: '密码', width: 120, }
+                    , {field: 'age', title: '年龄', width: 80, sort: true}
+                    , {field: 'sex', title: '性别', width: 80, }
+                    , {field: 'title', title: '职称', width: 80, }
+                    , {field: 'tel', title: '联系电话', width: 150, }
+                    , {field: 'registerTime', title: '创建时间', width: 120,sort: true}
+                ]
+            ]
+            , page: true
+        });
+
+        //工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
+                    break;
+            };
+        });
+    });
+</script>
+
+</body>
+</html>

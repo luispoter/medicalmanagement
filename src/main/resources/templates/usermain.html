@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="ttp://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>骨科病例管理系统</title>
+    <link rel="shortcut icon" type="image/png" href="/images/new_red.jpg" />
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" media="all" href="/css/localstyle.css"/>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon"  href="#"/>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        function change(title){
+            let url = "";
+            switch (title){
+                case 'addpatient':
+                    url = "addpatient.html";
+                    break;
+                case  'selectpatient':
+                    url = "selectpatient.html";
+                    break;
+                case 'deletepatient':
+                    url = "deletepatient.html"
+                      break;
+                case 'userupdateself':
+                    url = "userupdateself.html"
+                    break;
+                case 'personalInformation':
+                    url = "personalInformation.html";
+                    break;
+                case 'selectpatient0to10':
+                    url = "selectpatient0to10.html";
+                    break;
+                case 'selectpatient10to20':
+                    url = "selectpatient10to20.html";
+                    break;
+                case 'selectpatient20to30':
+                    url = "selectpatient20to30.html";
+                    break;
+                case 'selectpatient30to40':
+                    url = "selectpatient30to40.html";
+                    break;
+                case 'selectpatient40to50':
+                    url = "selectpatient40to50.html";
+                    break;
+                case 'selectpatient50to60':
+                    url = "selectpatient50to60.html";
+                    break;
+                case 'selectpatient60to70':
+                    url = "selectpatient60to70.html";
+                    break;
+                case 'selectpatient70to80':
+                    url = "selectpatient70to80.html";
+                    break;
+                case 'selectpatient80to90':
+                    url = "selectpatient80to90.html";
+                    break;
+                case 'selectpatient90to100':
+                    url = "selectpatient90to100.html";
+                    break;
+                case 'allage':
+                    url = "allage.html";
+                    break;
+            }
+            $('iframe').attr('src',url);
+        }
+    </script>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo layui-font-orange" id="ziti3">骨科病历管理系统</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;" >
+                    <!--用户的头像从数据库中获取-->
+                    <img src="/images/Q03.jpg" class="layui-nav-img">
+                    <b th:text="${#session.getAttribute('name')}"></b>
+                </a>
+                <dl class="layui-nav-child">
+
+                    <dd><a href="personalInformation:;" onclick="change('personalInformation')">个人资料</a></dd>
+                    <dd><a href="/logout">退出登陆</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="medicalrecordmanagement:;">病历管理</a>
+                    <dl class="layui-nav-child">
+                        <dd class="layui-this"><a href="addpatient:;" id="button" onclick="change('addpatient')">添加患者信息</a></dd>
+                        <dd><a href="selectpatient:;" id="button2" onclick="change('selectpatient')">查询患者信息</a></dd>
+<!--                        <dd><a href="" id="button3" onclick="change('update')">修改患者信息</a></dd>-->
+                        <dd><a href="deletepatient:;" id="button4" onclick="change('deletepatient')">删除患者信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">各年龄段各疾病发病统计</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" onclick="change('selectpatient0to10')">0-10</a></dd>
+                            <dd><a href="javascript:;" onclick="change('selectpatient10to20')">10-20</a></dd>
+                            <dd><a href="javascript:;" onclick="change('selectpatient20to30')">20-30</a></dd>
+                            <dd><a href="javascript:;" onclick="change('selectpatient30to40')">30-40</a></dd>
+                            <dd><a href="javascript:;" onclick="change('selectpatient40to50')">40-50</a></dd>
+                            <dd><a href="javascript:;" onclick="change('selectpatient50to60')">50-60</a></dd>
+                            <dd><a href="javascript:;" onclick="change('selectpatient60to70')">60-70</a></dd>
+                            <dd><a href="javascript:;" onclick="change('selectpatient70to80')">70-80</a></dd>
+                            <dd><a href="javascript:;" onclick="change('selectpatient80to90')">80-90</a></dd>
+                            <dd><a href="javascript:;" onclick="change('selectpatient90to100')">90-100</a></dd>
+                        </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" onclick="change('allage')">全年龄段各疾病发病统计</a>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="systemsetting:;">系统设置</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="userupdate:;" onclick="change('userupdateself')">用户设置</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <div style="padding: 15px">
+            <iframe src="addpatient.html" frameborder="0" id="demoAdmin" style="width: 100%; height: 700px; border-radius: 2px;" height="450px">  </iframe>
+        </div>
+
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        <div align="center">版权所有 Copyright©xxxx.com.All Rights Reserved
+            Copyright(c)xxxx.com.All Rights Reserved 湘ICP备14025236号
+        </div>
+    </div>
+</div>
+
+<script src="/layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+</script>
+
+</body>
+</html>

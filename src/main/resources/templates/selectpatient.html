@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询患者信息</title>
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body>
+<table class="layui-hide" id="test" lay-filter="test" ></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>
+
+<script src="layui/layui.js" charset="utf-8"></script>
+<script type="text/html" id="img">
+<img src="images/{{d.ct}}"/>
+
+</script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table
+            ,form = layui.form;
+        table.render({
+            elem: '#test'
+            ,url:'/list'
+            // ,url:'/test/table/demo1.json'
+            // 跨域问题，本地的静态页面访问不了，layui的服务器的json数据，要访问，就要让他保存在本地，在本地去访问他
+            ,toolbar: '#toolbarDemo'
+            ,title: '用户数据表'
+            ,height:500
+            ,totalRow: true
+            ,cols: [
+                [
+                    { type: 'numbers', title: '序号', width: 50 }
+                    //field的值，要跟patientVO的属性绑定起来，因为访问的是list,它返回的是PatientVO的属性值
+                    ,{type: 'checkbox'}
+                    ,{field:'paid', title:'患者编号', width:80, unresize: true, sort: true}
+                    ,{field:'name', title:'用户名', width:120}
+                    ,{field:'age', title:'年龄', width:120,sort: true}
+                    ,{field:'sex', title:'性别', width:80}
+                    ,{field:'maritalStatus', title:'婚姻状况', width:80}
+                    ,{field:'tel', title:'联系电话', width:150}
+                    ,{field:'home', title:'家庭地址', width:100}
+                    ,{field:'postalCode', title:'邮政编码', width:120}
+                    ,{field:'docname', title:'主治医生', width:120}
+                    ,{field:'treatmentTime', title:'治疗时间', width:120,sort: true}
+                    ,{field:'diseaseSituation', title:'主诉', width:120}
+                    ,{field:'ct', title:'CT检查', templet:'#img'}
+                    ,{field:'results', title:'诊断结果', width:120}
+                    ,{field:'type', title:'结果类型', width:120}
+                    ,{field:'updateTime', title:'更新时间', width:120,sort: true}
+            ]
+            ]
+            ,page: true
+        });
+
+        //工具栏事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选')
+                    break;
+            };
+        });
+    });
+</script>
+</body>
+</html>

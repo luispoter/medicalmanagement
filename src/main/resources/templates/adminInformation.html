@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="ttp://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<span  class="layui-form" id="span2">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">个人账号:</label>
+            <div class="layui-input-inline">
+                <b th:text="${session.admin.username}"   class="layui-btn" ></b>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">个人姓名</label>
+            <div class="layui-input-inline">
+                <b th:text="${session.admin.name}" class="layui-btn"></b>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">个人密码:</label>
+            <div class="layui-input-inline">
+                 <b th:text="${session.admin.password}" class="layui-btn"></b>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">年龄:</label>
+            <div class="layui-input-inline">
+                 <b th:text="${session.admin.age}" class="layui-btn"></b>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">注册时间:</label>
+            <div class="layui-input-inline">
+                <b th:text="${#dates.format(session.admin.registerTime,'yyyy-MM-dd HH:mm:ss')}" class="layui-btn"></b>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">更新时间:</label>
+            <div class="layui-input-inline">
+                <b th:text="${#dates.format(session.admin.updateTime,'yyyy-MM-dd HH:mm:ss')}" class="layui-btn"></b>
+            </div>
+        </div>
+    </div>
+</span>
+</div>
+<script src="/layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+</script>
+</body>
+</html>

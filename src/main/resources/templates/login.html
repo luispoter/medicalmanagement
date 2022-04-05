@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="ttp://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录界面</title>
+    <link rel="shortcut icon" type="image/png" href="/images/new_red.jpg" />
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" type="text/css" media="all" href="/css/localstyle.css"/>
+    <link rel="shortcut icon"  href="#"/>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+<div class="layui-form">
+    <p id="head" style="text-align: center">骨科病历管理系统</p><br/>
+    <img id="background" src="/images/doc.jpg">
+    <table id="form_t">
+        <tr>
+            <td>
+                <form action="/mainpage" method="post">
+                    <table>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <p id="p_02" >登录</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><img src="/images/user.jpg" width="30px" height="30px"></span>
+                            </td>
+                            <td>
+                                <br/>
+                                <input type="text"name="username" id="username" class="layui-input" placeholder="请输入账号"><br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><img src="/images/password.jpg" width="30px" height="30px"></span>
+                            </td>
+                            <td>
+                                <br/>
+                                <br/>
+                                <input type="password" lay-verify="pass" name="password" id="password" class="layui-input" placeholder="请输入密码"><br/>
+                                <div class="layui-form-mid layui-word-aux"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <div class="layui-form-item">
+                                    <input type="radio" name="type" value="user" title="用户" checked=""/>
+                                    <input type="radio" name="type" value="admin" title="管理员" />
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <input type="submit" value="登录" id="left" class="layui-btn layui-btn-normal layui-btn-radius">
+                                <button type="reset" class="layui-btn layui-btn-danger layui-btn-radius">重置</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    layui.use('form',function(){
+        var form = layui.form;
+        //刷新界面 所有元素
+        form.render('radio');
+
+    });
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 5){
+                    return '标题至少得5个字符啊';
+                }
+            }
+            ,pass: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+
+    });
+</script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<th:block th:include="footer.html :: permit"></th:block>
+</body>
+</html>

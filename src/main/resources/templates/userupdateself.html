@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改用户信息</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/localstyle.css"/>
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+</head>
+<body>
+<div align="center">
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <form class="layui-form" action="/userupdateself" method="post">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">修改密码:</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="password"  autocomplete="off" class="layui-input" placeholder="请输入新的密码" lay-verify="required" lay-reqtext="新密码是必填项，不能为空!如果不修改，请输入原密码">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">修改电话:</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="tel"  autocomplete="off" class="layui-input" placeholder="请输入新电话号码" lay-verify="required" lay-reqtext="电话号码是必填项，不能为空!如果不修改，请输入原电话号码！">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="layui-form-item">
+                        <div class="layui-form-item" align="center">
+                            <div class="layui-input-inline">
+                                <input type="submit" name="submit" value="提交" lay-submit="" lay-filter="demo2"
+                                       data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">
+                            </div>
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <input type="reset" name="reset" value="重置" class="layui-btn layui-btn-danger">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 5){
+                    return '标题至少得5个字符啊';
+                }
+            }
+            ,pass: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="ttp://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加管理员</title>
+    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+    <link rel="stylesheet" type="text/css" media="all" href="/css/localstyle.css"/>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+<div id="div1">
+    <form class="layui-form" action="/saveadmin" method="post">
+        <table>
+            <tr>
+                <td>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label layui-btn" >账号:</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="username" lay-verify="required" lay-reqtext="账号是必填项，不能为空!" autocomplete="off" class="layui-input"
+                                       placeholder="请输入新账号">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label layui-btn" >姓名:</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="name"  autocomplete="off" class="layui-input" llay-verify="title" lay-verify="required" lay-reqtext="姓名是必填项，不能为空!"
+                                       placeholder="请输入新姓名">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label layui-btn" >密码:</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="password"  autocomplete="off" class="layui-input" lay-verify="required" lay-reqtext="密码是必填项，不能为空!"
+                                       placeholder="请输入新密码">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label layui-btn" >年龄:</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="age"  autocomplete="off" class="layui-input" lay-verify="required" lay-reqtext="年龄是必填项，不能为空!"
+                                       placeholder="请输入年龄">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label layui-btn" >注册时间:</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="registerTime" id="datetime" autocomplete="off" class="layui-input" placeholder="yyyy-MM-dd HH:mm:ss"  lay-verify="required datetime" lay-reqtext="注册时间是必填项，不能为空!">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <div class="layui-input-block">
+                    <div id="layerDemo" style="margin-bottom: 0;">
+                        <input type="submit" name="submit" value="点击提交"  lay-submit="" lay-filter="demo2" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-block">
+                    <input type="reset" name="reset" value="点击重置" class="layui-btn layui-btn-danger"  >
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#datetime'
+            ,type:'datetime'
+        });
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 5){
+                    return '标题至少得5个字符啊';
+                }
+            }
+            ,pass: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

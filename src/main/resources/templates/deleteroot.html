@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>删除用户</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+</head>
+<body>
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+<script src="/layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
+
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        //温馨提示：默认由前端自动合计当前行数据。从 layui 2.5.6 开始： 若接口直接返回了合计行数据，则优先读取接口合计行数据。
+        //详见：https://www.layui.com/doc/modules/table.html#totalRow
+        table.render({
+            elem: '#test'
+            , url: '/findroot'
+            , toolbar: '#toolbarDemo'
+            , title: '用户数据表'
+            ,height:500
+            , totalRow: true
+            , cols: [
+                [
+                    { type: 'numbers', title: '序号', width: 50}
+                    //field的值，要跟patientVO的属性绑定起来，因为访问的是list,它返回的是PatientVO的属性值
+                    ,{type: 'checkbox'}
+                    ,{field:'adid', title:'编号', width:80, unresize: true, sort: true}
+                    , {field: 'username', title: '账户', width: 120}
+                    , {field: 'name', title: '姓名', width: 120}
+                    , {field: 'password', title: '密码', width: 120}
+                    , {field: 'age', title: '年龄', width: 80, sort: true}
+                    , {field: 'registerTime', title: '创建时间', width: 120,sort: true}
+                    , {field: 'updateTime', title: '修改时间', width: 120,sort: true}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 100}
+                ]
+            ]
+            , page: true
+        });
+
+        //工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
+                    break;
+            }
+
+        });
+        table.on('checkbox(demo)', function (obj) {
+            console.log(obj)
+        });
+        //监听工具条
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('真的删除吗？', function (index) {
+                    $.ajax({
+                        url: "/deleteroot",
+                        type: "POST",
+                        data: {adid: data.adid},
+                        success: function (msg) {
+                            if (msg == 200) {
+                                //删除这一行
+                                obj.del();
+                                //关闭弹框
+                                layer.close(index);
+                                layer.msg("删除成功", {icon: 6});
+                            } else {
+                                layer.msg("删除失败", {icon: 5});
+                            }
+                        }
+                    });
+                    return false;
+                });
+            } else{
+
+            }
+        });
+        var $ = layui.$, active = {
+            reload: function () {
+                var demoReload = $('#demoReload');
+
+                //执行重载
+                table.reload('idTest', {
+                    where: {
+                        key: {
+                            field: demoReload.val()
+                        }
+                    }
+                });
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        // 刷新表格
+        $('#btn-refresh').on('click', function () {
+            tableIns.reload()
+        });
+    });
+</script>
+
+</body>
+</html>

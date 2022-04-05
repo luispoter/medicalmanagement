@@ -1,0 +1,120 @@
+/*login.html*/
+p#head{
+    color: black;
+    margin-top: 50px;
+    font: normal bold 60px "华文楷体";
+}
+img#background{
+    margin-top: 80px;
+    margin-left: 320px;
+    width: 560px;
+    height: 450px;
+    display: inline;
+}
+
+table#form_t{
+    position: absolute;
+    top: 250px;
+    margin-left: 50px;
+    display: inline;
+}
+input.layui-input{
+
+}
+input#left{
+    float: left;
+}
+input#right{
+    float: right;
+}
+p#p_02{
+    font: normal bold 30px "黑体";
+}
+span#login_font{
+    font:  normal normal 17px "Times New Roman";
+    padding-bottom: 10px;
+}
+span#login_font2{
+    font:  normal normal 17px "Times New Roman";
+    padding-bottom: 10px;
+}
+/*top.html*/
+div.alldiv{
+    width: auto;
+    height: auto;
+}
+div#top{
+    background: chocolate;
+    width: 1520px;
+    height: 50px;
+}
+p#top_01{
+    font: italic bold 20px "Times New Roman";
+    position: absolute;
+    left: 500px;
+    top: 10px;
+}
+table#pain_table01{
+    border-top: solid darkgrey 1px;
+    border-left: solid darkgrey 1px ;
+    border-right: solid darkgrey 1px;
+    position: absolute;
+    width: 250px;
+    height: 20px;
+    top: 100px;
+    float: left;
+}
+table#pain_table02{
+    border-bottom: solid darkgrey 1px;
+    border-left: solid darkgrey 1px ;
+    border-right: solid darkgrey 1px;
+    position: absolute;
+    width: 250px;
+    height: auto;
+    top: 130px;
+    float: left;
+}
+
+
+/*topright*/
+div.top_right{
+    float: right;
+    width: 1250px;
+    height: auto;
+    top: 100px;
+    border: solid darkgrey 1px;
+}
+/*person*/
+/*.right{*/
+/*    float: right;*/
+/*}*/
+/*div div#person_font{*/
+/*    font: normal bold 30px "Times New Roman";*/
+/*}*/
+/*table td{*/
+/*    border-bottom: 1px solid #ddd;*/
+/*    padding-bottom: 5px;*/
+/*    padding-top: 5px;*/
+/*}*/
+/*medical_record*/
+p.xihong{
+    font: normal bold 30px "华光淡古印_CNKI";
+}
+p#xihong{
+    font: normal bold 30px "微软雅黑 Light";
+}
+/*zhuye*/
+div#hh{
+    position: absolute;
+    left: 500px;
+    top: 450px;
+}
+
+span.layui-form{
+    position: absolute;
+    top: 100px;
+    left: 450px;
+    padding-left: 450px;
+    padding-top: 150px;
+}
+
